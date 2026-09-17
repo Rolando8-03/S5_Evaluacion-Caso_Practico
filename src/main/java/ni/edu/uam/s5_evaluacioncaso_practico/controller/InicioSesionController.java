@@ -10,7 +10,18 @@ import ni.edu.uam.s5_evaluacioncaso_practico.util.Alertas;
 import ni.edu.uam.s5_evaluacioncaso_practico.util.Navegacion;
 import ni.edu.uam.s5_evaluacioncaso_practico.util.Validaciones;
 
+import java.util.Map;
+
 public class InicioSesionController {
+
+    /*
+     * Como esta práctica no utiliza base de datos, los usuarios se mantienen
+     * temporalmente en memoria. Esto permite validar que el usuario realmente
+     * exista sin agregar tecnologías que todavía no se han estudiado.
+     */
+    private static final Map<String, String> USUARIOS = Map.of(
+            "admin", "1234"
+    );
 
     @FXML
     private TextField txtUsuario;
@@ -20,19 +31,48 @@ public class InicioSesionController {
 
     @FXML
     private void iniciarSesion() {
-        if (Validaciones.textoVacio(txtUsuario.getText()) ||
-                Validaciones.textoVacio(txtContrasena.getText())) {
-            Alertas.error("Datos incompletos", "Debe ingresar el usuario y la contraseña.");
+        String usuario = txtUsuario.getText().trim();
+        String contrasena = txtContrasena.getText();
+
+        if (Validaciones.textoVacio(usuario)
+                || Validaciones.textoVacio(contrasena)) {
+
+            Alertas.error(
+                    "Datos incompletos",
+                    "Debe ingresar el usuario y la contraseña."
+            );
             return;
         }
 
-        Navegacion.abrirVentana("principal-view.fxml", "Sistema de Gestión de Solicitudes");
+        String contrasenaRegistrada = USUARIOS.get(usuario);
+
+        if (contrasenaRegistrada == null
+                || !contrasenaRegistrada.equals(contrasena)) {
+
+            Alertas.error(
+                    "Acceso denegado",
+                    "El usuario o la contraseña son incorrectos."
+            );
+
+            txtContrasena.clear();
+            txtContrasena.requestFocus();
+            return;
+        }
+
+        Navegacion.abrirVentana(
+                "principal-view.fxml",
+                "Sistema de Gestión de Solicitudes"
+        );
+
         Navegacion.cerrarVentana(txtUsuario);
     }
 
     @FXML
     private void salir() {
-        if (Alertas.confirmar("Confirmar salida", "¿Desea cerrar la aplicación?")) {
+        if (Alertas.confirmar(
+                "Confirmar salida",
+                "¿Desea cerrar la aplicación?"
+        )) {
             Platform.exit();
         }
     }
@@ -41,6 +81,7 @@ public class InicioSesionController {
     private void manejarTeclado(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             iniciarSesion();
+            event.consume();
         }
     }
 }
