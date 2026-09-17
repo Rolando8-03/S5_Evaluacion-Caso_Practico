@@ -10,7 +10,6 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.GridPane?>
@@ -20,84 +19,201 @@
 <BorderPane xmlns="http://javafx.com/javafx/21.0.6"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="ni.edu.uam.s5_evaluacioncaso_practico.controller.RegistroClienteController"
-            prefWidth="940.0" prefHeight="720.0"
+            prefWidth="940.0"
+            prefHeight="720.0"
             styleClass="app-root">
+
     <top>
-        <VBox spacing="4.0" styleClass="page-header">
+        <VBox spacing="4.0"
+              styleClass="page-header">
+
             <padding>
-                <Insets top="22.0" right="28.0" bottom="18.0" left="28.0"/>
+                <Insets top="22.0"
+                        right="28.0"
+                        bottom="18.0"
+                        left="28.0"/>
             </padding>
-            <Label text="Registro de cliente" styleClass="title"/>
-            <Label text="Complete la información solicitada antes de guardar." styleClass="subtitle"/>
+
+            <Label text="Registro de cliente"
+                   styleClass="title"/>
+
+            <Label text="Complete la información solicitada antes de guardar."
+                   styleClass="subtitle"/>
         </VBox>
     </top>
 
     <center>
-        <ScrollPane fitToWidth="true" pannable="true" styleClass="transparent-scroll">
+        <ScrollPane fitToWidth="true"
+                    pannable="true"
+                    styleClass="transparent-scroll">
+
             <content>
-                <VBox spacing="20.0" styleClass="content-area">
+                <VBox spacing="20.0"
+                      styleClass="content-area">
+
                     <padding>
-                        <Insets top="24.0" right="30.0" bottom="28.0" left="30.0"/>
+                        <Insets top="24.0"
+                                right="30.0"
+                                bottom="28.0"
+                                left="30.0"/>
                     </padding>
 
-                    <GridPane hgap="18.0" vgap="14.0">
-                        <Label text="Nombres" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="field-label"/>
-                        <TextField fx:id="txtNombres" promptText="Nombres del cliente" GridPane.rowIndex="1" GridPane.columnIndex="0" prefWidth="310.0"/>
+                    <!-- Datos personales -->
+                    <GridPane hgap="18.0"
+                              vgap="14.0">
 
-                        <Label text="Apellidos" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="field-label"/>
-                        <TextField fx:id="txtApellidos" promptText="Apellidos del cliente" GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="310.0"/>
+                        <Label text="Nombres"
+                               GridPane.rowIndex="0"
+                               GridPane.columnIndex="0"
+                               styleClass="field-label"/>
 
-                        <Label text="Tipo de cliente" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="field-label"/>
-                        <ComboBox fx:id="cbTipoCliente" promptText="Seleccione" GridPane.rowIndex="3" GridPane.columnIndex="0" prefWidth="310.0"/>
+                        <TextField fx:id="txtNombres"
+                                   promptText="Nombres del cliente"
+                                   GridPane.rowIndex="1"
+                                   GridPane.columnIndex="0"
+                                   prefWidth="310.0"/>
 
-                        <Label text="Ciudad" GridPane.rowIndex="2" GridPane.columnIndex="1" styleClass="field-label"/>
-                        <ComboBox fx:id="cbCiudad" promptText="Seleccione" GridPane.rowIndex="3" GridPane.columnIndex="1" prefWidth="310.0"/>
+                        <Label text="Apellidos"
+                               GridPane.rowIndex="0"
+                               GridPane.columnIndex="1"
+                               styleClass="field-label"/>
 
-                        <Label text="Fecha de nacimiento" GridPane.rowIndex="4" GridPane.columnIndex="0" styleClass="field-label"/>
-                        <DatePicker fx:id="dpFechaNacimiento" promptText="Seleccione fecha" GridPane.rowIndex="5" GridPane.columnIndex="0" prefWidth="310.0"/>
+                        <TextField fx:id="txtApellidos"
+                                   promptText="Apellidos del cliente"
+                                   GridPane.rowIndex="1"
+                                   GridPane.columnIndex="1"
+                                   prefWidth="310.0"/>
+
+                        <Label text="Tipo de cliente"
+                               GridPane.rowIndex="2"
+                               GridPane.columnIndex="0"
+                               styleClass="field-label"/>
+
+                        <ComboBox fx:id="cbTipoCliente"
+                                  promptText="Seleccione"
+                                  GridPane.rowIndex="3"
+                                  GridPane.columnIndex="0"
+                                  prefWidth="310.0"/>
+
+                        <Label text="Ciudad"
+                               GridPane.rowIndex="2"
+                               GridPane.columnIndex="1"
+                               styleClass="field-label"/>
+
+                        <ComboBox fx:id="cbCiudad"
+                                  promptText="Seleccione"
+                                  GridPane.rowIndex="3"
+                                  GridPane.columnIndex="1"
+                                  prefWidth="310.0"/>
+
+                        <Label text="Fecha de nacimiento"
+                               GridPane.rowIndex="4"
+                               GridPane.columnIndex="0"
+                               styleClass="field-label"/>
+
+                        <DatePicker fx:id="dpFechaNacimiento"
+                                    promptText="Seleccione fecha"
+                                    GridPane.rowIndex="5"
+                                    GridPane.columnIndex="0"
+                                    prefWidth="310.0"/>
                     </GridPane>
 
                     <Separator/>
 
+                    <!-- Tipo de solicitud -->
                     <VBox spacing="10.0">
-                        <Label text="Tipo de solicitud" styleClass="section-title"/>
+
+                        <Label text="Tipo de solicitud"
+                               styleClass="section-title"/>
+
                         <HBox spacing="18.0">
-                            <RadioButton fx:id="rbInformacion" text="Información" toggleGroup="$grupoTipoSolicitud"/>
-                            <RadioButton fx:id="rbSoporte" text="Soporte" toggleGroup="$grupoTipoSolicitud"/>
-                            <RadioButton fx:id="rbContratacion" text="Contratación" toggleGroup="$grupoTipoSolicitud"/>
+
+                            <RadioButton fx:id="rbInformacion"
+                                         text="Información"/>
+
+                            <RadioButton fx:id="rbSoporte"
+                                         text="Soporte"/>
+
+                            <RadioButton fx:id="rbContratacion"
+                                         text="Contratación"/>
                         </HBox>
                     </VBox>
 
+                    <!-- Servicios de interés -->
                     <VBox spacing="10.0">
-                        <Label text="Servicios de interés" styleClass="section-title"/>
+
+                        <Label text="Servicios de interés"
+                               styleClass="section-title"/>
+
                         <HBox spacing="18.0">
-                            <CheckBox fx:id="chkAsesoria" text="Asesoría"/>
-                            <CheckBox fx:id="chkInstalacion" text="Instalación"/>
-                            <CheckBox fx:id="chkSoporteTecnico" text="Soporte técnico"/>
-                            <CheckBox fx:id="chkMantenimiento" text="Mantenimiento"/>
+
+                            <CheckBox fx:id="chkAsesoria"
+                                      text="Asesoría"/>
+
+                            <CheckBox fx:id="chkInstalacion"
+                                      text="Instalación"/>
+
+                            <CheckBox fx:id="chkSoporteTecnico"
+                                      text="Soporte técnico"/>
+
+                            <CheckBox fx:id="chkMantenimiento"
+                                      text="Mantenimiento"/>
                         </HBox>
                     </VBox>
 
                     <Separator/>
 
-                    <HBox spacing="22.0" alignment="CENTER_LEFT">
+                    <!-- Fotografía -->
+                    <HBox spacing="22.0"
+                          alignment="CENTER_LEFT">
+
                         <VBox spacing="9.0">
-                            <Label text="Fotografía" styleClass="section-title"/>
-                            <ImageView fx:id="imgFotografia" fitWidth="180.0" fitHeight="180.0" preserveRatio="true" smooth="true" styleClass="photo-frame"/>
+
+                            <Label text="Fotografía"
+                                   styleClass="section-title"/>
+
+                            <ImageView fx:id="imgFotografia"
+                                       fitWidth="180.0"
+                                       fitHeight="180.0"
+                                       preserveRatio="true"
+                                       smooth="true"
+                                       styleClass="photo-frame"/>
                         </VBox>
-                        <VBox spacing="10.0" alignment="CENTER_LEFT">
-                            <Button text="Seleccionar fotografía" onAction="#seleccionarFotografia" styleClass="secondary-button"/>
-                            <Label fx:id="lblNombreFotografia" text="Sin fotografía seleccionada" wrapText="true" maxWidth="420.0" styleClass="helper-text"/>
+
+                        <VBox spacing="10.0"
+                              alignment="CENTER_LEFT">
+
+                            <Button text="Seleccionar fotografía"
+                                    onAction="#seleccionarFotografia"
+                                    styleClass="secondary-button"/>
+
+                            <Label fx:id="lblNombreFotografia"
+                                   text="Sin fotografía seleccionada"
+                                   wrapText="true"
+                                   maxWidth="420.0"
+                                   styleClass="helper-text"/>
                         </VBox>
                     </HBox>
 
-                    <HBox spacing="12.0" alignment="CENTER_RIGHT">
-                        <Button text="Guardar" onAction="#guardarCliente" styleClass="primary-button"/>
-                        <Button text="Limpiar" onAction="#limpiarFormulario" styleClass="secondary-button"/>
-                        <Button text="Cancelar" onAction="#cancelar" styleClass="secondary-button"/>
+                    <HBox spacing="12.0"
+                          alignment="CENTER_RIGHT">
+
+                        <Button text="Guardar"
+                                onAction="#guardarCliente"
+                                styleClass="primary-button"/>
+
+                        <Button text="Limpiar"
+                                onAction="#limpiarFormulario"
+                                styleClass="secondary-button"/>
+
+                        <Button text="Cancelar"
+                                onAction="#cancelar"
+                                styleClass="secondary-button"/>
                     </HBox>
+
                 </VBox>
             </content>
         </ScrollPane>
     </center>
+
 </BorderPane>
