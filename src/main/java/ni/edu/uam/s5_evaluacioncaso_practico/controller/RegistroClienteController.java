@@ -125,11 +125,9 @@ public class RegistroClienteController {
     }
 
     private void configurarFechaNacimiento() {
-        /*
-         * Se evita la edición manual para que la fecha siempre provenga
-         * del calendario y sea más fácil controlar valores inválidos.
-         */
         dpFechaNacimiento.setEditable(false);
+
+        LocalDate fechaMaximaNacimiento = LocalDate.now().minusYears(18);
 
         dpFechaNacimiento.setDayCellFactory(datePicker ->
                 new DateCell() {
@@ -142,8 +140,7 @@ public class RegistroClienteController {
                             return;
                         }
 
-                        // Una fecha de nacimiento no puede estar en el futuro.
-                        setDisable(fecha.isAfter(LocalDate.now()));
+                        setDisable(fecha.isAfter(fechaMaximaNacimiento));
                     }
                 }
         );

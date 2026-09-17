@@ -14,12 +14,19 @@ import ni.edu.uam.s5_evaluacioncaso_practico.model.Cliente;
 import ni.edu.uam.s5_evaluacioncaso_practico.util.Navegacion;
 
 import java.io.File;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class DetalleClienteController {
 
     @FXML
     private BorderPane rootPane;
+
+    @FXML
+    private ImageView imgFotografia;
+
+    @FXML
+    private Label lblEstadoFotografia;
 
     @FXML
     private Label lblNombreCompleto;
@@ -37,20 +44,13 @@ public class DetalleClienteController {
     private Label lblTipoSolicitud;
 
     @FXML
-    private Label lblEstadoFotografia;
-
-    @FXML
-    private ImageView imgFotografia;
-
-    @FXML
     private ListView<String> listaServicios;
 
     /*
-     * Recibe el cliente seleccionado en la tabla y coloca
-     * su información en los controles de la vista de detalle.
+     * Recibe el cliente seleccionado en la tabla y muestra
+     * toda su información en la ventana de detalle.
      */
     public void setCliente(Cliente cliente) {
-
         if (cliente == null) {
             return;
         }
@@ -67,8 +67,11 @@ public class DetalleClienteController {
                 cliente.getCiudad()
         );
 
+        DateTimeFormatter formatoFecha =
+                DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
         lblFechaNacimiento.setText(
-                cliente.getFechaNacimiento().toString()
+                cliente.getFechaNacimiento().format(formatoFecha)
         );
 
         lblTipoSolicitud.setText(
@@ -77,69 +80,53 @@ public class DetalleClienteController {
 
         cargarServicios(cliente);
         cargarFotografia(cliente.getRutaFotografia());
-
-        enfocarVentana();
     }
 
     /*
-     * Muestra en el ListView los servicios seleccionados
-     * durante el registro del cliente.
+     * Los servicios elegidos durante el registro se muestran
+     * en un ListView para facilitar su lectura.
      */
     private void cargarServicios(Cliente cliente) {
-
-        List<String> servicios =
-                cliente.getServiciosInteres()
-                        .stream()
-                        .map(Object::toString)
-                        .toList();
+        List<String> servicios = cliente
+                .getServiciosInteres()
+                .stream()
+                .map(Object::toString)
+                .toList();
 
         if (servicios.isEmpty()) {
-
             listaServicios.setItems(
                     FXCollections.observableArrayList(
                             "Sin servicios seleccionados"
                     )
             );
-
-        } else {
-
-            listaServicios.setItems(
-                    FXCollections.observableArrayList(
-                            servicios
-                    )
-            );
+            return;
         }
+
+        listaServicios.setItems(
+                FXCollections.observableArrayList(servicios)
+        );
     }
 
     /*
-     * Intenta cargar la fotografía almacenada del cliente.
-     * Si el archivo ya no existe o no puede leerse, la vista
-     * continúa funcionando y muestra un mensaje alternativo.
+     * La fotografía puede dejar de existir después de registrar
+     * al cliente, por eso se comprueba antes de mostrarla.
      */
     private void cargarFotografia(String ruta) {
-
         if (ruta == null || ruta.isBlank()) {
-
-            mostrarSinFotografia(
-                    "Sin fotografía"
-            );
-
+            mostrarSinFotografia("Sin fotografía");
             return;
         }
 
         File archivo = new File(ruta);
 
         if (!archivo.exists() || !archivo.isFile()) {
-
             mostrarSinFotografia(
                     "Fotografía no disponible"
             );
-
             return;
         }
 
         try {
-
             Image imagen = new Image(
                     archivo.toURI().toString(),
                     false
@@ -152,7 +139,6 @@ public class DetalleClienteController {
                 mostrarSinFotografia(
                         "Fotografía no disponible"
                 );
-
                 return;
             }
 
@@ -162,7 +148,6 @@ public class DetalleClienteController {
             );
 
         } catch (Exception e) {
-
             mostrarSinFotografia(
                     "Fotografía no disponible"
             );
@@ -170,19 +155,16 @@ public class DetalleClienteController {
     }
 
     private void mostrarSinFotografia(String mensaje) {
-
         imgFotografia.setImage(null);
         lblEstadoFotografia.setText(mensaje);
     }
 
     /*
-     * Se utiliza para que la ventana de detalle pueda
-     * detectar correctamente la tecla ESC.
+     * Se solicita el foco para que la ventana pueda detectar
+     * correctamente la tecla ESC.
      */
     public void enfocarVentana() {
-
         Platform.runLater(() -> {
-
             if (rootPane != null) {
                 rootPane.requestFocus();
             }
@@ -191,9 +173,7 @@ public class DetalleClienteController {
 
     @FXML
     private void manejarTeclado(KeyEvent event) {
-
         if (event.getCode() == KeyCode.ESCAPE) {
-
             cerrar();
             event.consume();
         }
@@ -201,7 +181,6 @@ public class DetalleClienteController {
 
     @FXML
     private void cerrar() {
-
         Navegacion.cerrarVentana(rootPane);
     }
 }
