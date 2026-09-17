@@ -1,75 +1,164 @@
 package ni.edu.uam.s5_evaluacioncaso_practico.controller;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import ni.edu.uam.s5_evaluacioncaso_practico.model.Cliente;
 import ni.edu.uam.s5_evaluacioncaso_practico.util.Navegacion;
 
 import java.io.File;
+import java.util.List;
 
 public class DetalleClienteController {
 
-    @FXML private VBox root;
-    @FXML private Label lblId;
-    @FXML private Label lblNombre;
-    @FXML private Label lblTipoCliente;
-    @FXML private Label lblCiudad;
-    @FXML private Label lblFechaNacimiento;
-    @FXML private Label lblTipoSolicitud;
-    @FXML private Label lblFotografia;
-    @FXML private ImageView imgFotografia;
-    @FXML private ListView<String> listaServicios;
+    @FXML
+    private BorderPane rootPane;
 
-    private Cliente cliente;
+    @FXML
+    private Label lblNombreCompleto;
+
+    @FXML
+    private Label lblTipoCliente;
+
+    @FXML
+    private Label lblCiudad;
+
+    @FXML
+    private Label lblFechaNacimiento;
+
+    @FXML
+    private Label lblTipoSolicitud;
+
+    @FXML
+    private Label lblEstadoFotografia;
+
+    @FXML
+    private ImageView imgFotografia;
+
+    @FXML
+    private ListView<String> listaServicios;
 
     public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-        mostrarDatos();
+        if (cliente == null) {
+            return;
+        }
+
+        lblNombreCompleto.setText(
+                cliente.getNombreCompleto()
+        );
+
+        lblTipoCliente.setText(
+                cliente.getTipoCliente().toString()
+        );
+
+        lblCiudad.setText(
+                cliente.getCiudad()
+        );
+
+        lblFechaNacimiento.setText(
+                cliente.getFechaNacimiento().toString()
+        );
+
+        lblTipoSolicitud.setText(
+                cliente.getTipoSolicitud().toString()
+        );
+
+        List<String> servicios =
+                cliente.getServiciosInteres()
+                        .stream()
+                        .map(Object::toString)
+                        .toList();
+
+        if (servicios.isEmpty()) {
+            listaServicios.setItems(
+                    FXCollections.observableArrayList(
+                            "Sin servicios seleccionados"
+                    )
+            );
+        } else {
+            listaServicios.setItems(
+                    FXCollections.observableArrayList(
+                            servicios
+                    )
+            );
+        }
+
+        cargarFotografia(
+                cliente.getRutaFotografia()
+        );
+
+        Platform.runLater(
+                rootPane::requestFocus
+        );
     }
 
-    private void mostrarDatos() {
-        if (cliente == null) return;
-
-        lblId.setText(String.valueOf(cliente.getId()));
-        lblNombre.setText(cliente.getNombreCompleto());
-        lblTipoCliente.setText(String.valueOf(cliente.getTipoCliente()));
-        lblCiudad.setText(cliente.getCiudad());
-        lblFechaNacimiento.setText(String.valueOf(cliente.getFechaNacimiento()));
-        lblTipoSolicitud.setText(String.valueOf(cliente.getTipoSolicitud()));
-        listaServicios.setItems(FXCollections.observableArrayList(
-                cliente.getServiciosInteres().stream().map(String::valueOf).toList()
-        ));
-
-        String ruta = cliente.getRutaFotografia();
-        if (ruta != null && !ruta.isBlank() && new File(ruta).isFile()) {
-            imgFotografia.setImage(new Image(new File(ruta).toURI().toString()));
-            lblFotografia.setText(new File(ruta).getName());
-        } else {
-            imgFotografia.setImage(null);
-            lblFotografia.setText("Sin fotografía");
-        }
+    @FXML
+    private void cerrar() {
+        Navegacion.cerrarVentana(rootPane);
     }
 
     @FXML
     private void manejarTeclado(KeyEvent event) {
         if (event.getCode() == KeyCode.ESCAPE) {
             cerrar();
+            event.consume();
         }
     }
 
-    @FXML
-    private void cerrar() {
-        Navegacion.cerrarVentana(root);
+    private void cargarFotografia(String ruta) {
+        if (ruta == null || ruta.isBlank()) {
+            mostrarSinFotografia(
+                    "Sin fotografía"
+            );
+            return;
+        }
+
+        File archivo = new File(ruta);
+
+        if (!archivo.exists() || !archivo.isFile()) {
+            mostrarSinFotografia(
+                    "Fotografía no disponible"
+            );
+            return;
+        }
+
+        try {
+            Image imagen = new Image(
+                    archivo.toURI().toString(),
+                    false
+            );
+
+            if (imagen.isError()
+                    || imagen.getWidth() <= 0
+                    || imagen.getHeight() <= 0) {
+
+                mostrarSinFotografia(
+                        "Fotografía no disponible"
+                );
+                return;
+            }
+
+            imgFotografia.setImage(imagen);
+            lblEstadoFotografia.setText(
+                    archivo.getName()
+            );
+
+        } catch (Exception e) {
+            mostrarSinFotografia(
+                    "Fotografía no disponible"
+            );
+        }
     }
 
-    public void enfocarVentana() {
-        root.requestFocus();
+    private void mostrarSinFotografia(String mensaje) {
+        imgFotografia.setImage(null);
+        lblEstadoFotografia.setText(mensaje);
     }
 }
