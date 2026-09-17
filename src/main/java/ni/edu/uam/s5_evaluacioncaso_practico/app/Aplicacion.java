@@ -9,12 +9,26 @@ public class Aplicacion extends Application {
 
     @Override
     public void start(Stage stage) {
-        Parent root = Navegacion.cargarVista("inicio-sesion-view.fxml");
+        Parent root = Navegacion.cargarVista(
+                "inicio-sesion-view.fxml"
+        );
 
-        stage.setTitle("Sistema de Gestión de Solicitudes");
-        stage.setScene(Navegacion.crearEscena(root));
-        stage.setMinWidth(760);
-        stage.setMinHeight(520);
+        stage.setTitle(
+                "Sistema de Gestión de Solicitudes"
+        );
+
+        stage.setScene(
+                Navegacion.crearEscena(root)
+        );
+
+        /*
+         * El diseño tiene un tamaño definido, por lo que no es necesario
+         * permitir que la ventana se maximice o se redimensione.
+         */
+        stage.setResizable(false);
+
+        stage.sizeToScene();
+        stage.centerOnScreen();
         stage.show();
     }
 
