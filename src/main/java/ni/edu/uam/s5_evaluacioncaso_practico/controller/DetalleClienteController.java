@@ -45,7 +45,12 @@ public class DetalleClienteController {
     @FXML
     private ListView<String> listaServicios;
 
+    /*
+     * Recibe el cliente seleccionado en la tabla y coloca
+     * su información en los controles de la vista de detalle.
+     */
     public void setCliente(Cliente cliente) {
+
         if (cliente == null) {
             return;
         }
@@ -70,6 +75,18 @@ public class DetalleClienteController {
                 cliente.getTipoSolicitud().toString()
         );
 
+        cargarServicios(cliente);
+        cargarFotografia(cliente.getRutaFotografia());
+
+        enfocarVentana();
+    }
+
+    /*
+     * Muestra en el ListView los servicios seleccionados
+     * durante el registro del cliente.
+     */
+    private void cargarServicios(Cliente cliente) {
+
         List<String> servicios =
                 cliente.getServiciosInteres()
                         .stream()
@@ -77,59 +94,52 @@ public class DetalleClienteController {
                         .toList();
 
         if (servicios.isEmpty()) {
+
             listaServicios.setItems(
                     FXCollections.observableArrayList(
                             "Sin servicios seleccionados"
                     )
             );
+
         } else {
+
             listaServicios.setItems(
                     FXCollections.observableArrayList(
                             servicios
                     )
             );
         }
-
-        cargarFotografia(
-                cliente.getRutaFotografia()
-        );
-
-        Platform.runLater(
-                rootPane::requestFocus
-        );
     }
 
-    @FXML
-    private void cerrar() {
-        Navegacion.cerrarVentana(rootPane);
-    }
-
-    @FXML
-    private void manejarTeclado(KeyEvent event) {
-        if (event.getCode() == KeyCode.ESCAPE) {
-            cerrar();
-            event.consume();
-        }
-    }
-
+    /*
+     * Intenta cargar la fotografía almacenada del cliente.
+     * Si el archivo ya no existe o no puede leerse, la vista
+     * continúa funcionando y muestra un mensaje alternativo.
+     */
     private void cargarFotografia(String ruta) {
+
         if (ruta == null || ruta.isBlank()) {
+
             mostrarSinFotografia(
                     "Sin fotografía"
             );
+
             return;
         }
 
         File archivo = new File(ruta);
 
         if (!archivo.exists() || !archivo.isFile()) {
+
             mostrarSinFotografia(
                     "Fotografía no disponible"
             );
+
             return;
         }
 
         try {
+
             Image imagen = new Image(
                     archivo.toURI().toString(),
                     false
@@ -142,6 +152,7 @@ public class DetalleClienteController {
                 mostrarSinFotografia(
                         "Fotografía no disponible"
                 );
+
                 return;
             }
 
@@ -151,6 +162,7 @@ public class DetalleClienteController {
             );
 
         } catch (Exception e) {
+
             mostrarSinFotografia(
                     "Fotografía no disponible"
             );
@@ -158,7 +170,38 @@ public class DetalleClienteController {
     }
 
     private void mostrarSinFotografia(String mensaje) {
+
         imgFotografia.setImage(null);
         lblEstadoFotografia.setText(mensaje);
+    }
+
+    /*
+     * Se utiliza para que la ventana de detalle pueda
+     * detectar correctamente la tecla ESC.
+     */
+    public void enfocarVentana() {
+
+        Platform.runLater(() -> {
+
+            if (rootPane != null) {
+                rootPane.requestFocus();
+            }
+        });
+    }
+
+    @FXML
+    private void manejarTeclado(KeyEvent event) {
+
+        if (event.getCode() == KeyCode.ESCAPE) {
+
+            cerrar();
+            event.consume();
+        }
+    }
+
+    @FXML
+    private void cerrar() {
+
+        Navegacion.cerrarVentana(rootPane);
     }
 }
