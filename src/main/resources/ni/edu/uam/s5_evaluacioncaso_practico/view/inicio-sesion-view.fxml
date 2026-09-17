@@ -12,31 +12,60 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="ni.edu.uam.s5_evaluacioncaso_practico.controller.InicioSesionController"
             onKeyPressed="#manejarTeclado"
-            prefWidth="760.0" prefHeight="520.0"
+            prefWidth="760.0"
+            prefHeight="520.0"
             styleClass="app-root">
+
     <center>
-        <VBox alignment="CENTER" spacing="14.0" maxWidth="380.0" styleClass="card">
+        <VBox alignment="CENTER"
+              spacing="14.0"
+              maxWidth="380.0"
+              styleClass="card">
+
             <padding>
-                <Insets top="34.0" right="36.0" bottom="34.0" left="36.0"/>
+                <Insets top="34.0"
+                        right="36.0"
+                        bottom="34.0"
+                        left="36.0"/>
             </padding>
 
-            <Label text="Sistema de Gestión de Solicitudes" styleClass="title" wrapText="true"/>
-            <Label text="Inicio de sesión" styleClass="subtitle"/>
+            <Label text="Sistema de Gestión de Solicitudes"
+                   styleClass="title"
+                   wrapText="true"/>
+
+            <Label text="Inicio de sesión"
+                   styleClass="subtitle"/>
 
             <VBox spacing="6.0" fillWidth="true">
-                <Label text="Usuario" styleClass="field-label"/>
-                <TextField fx:id="txtUsuario" promptText="Ingrese su usuario"/>
+                <Label text="Usuario"
+                       styleClass="field-label"/>
+
+                <TextField fx:id="txtUsuario"
+                           promptText="Ingrese su usuario"/>
             </VBox>
 
             <VBox spacing="6.0" fillWidth="true">
-                <Label text="Contraseña" styleClass="field-label"/>
-                <PasswordField fx:id="txtContrasena" promptText="Ingrese su contraseña"/>
+                <Label text="Contraseña"
+                       styleClass="field-label"/>
+
+                <PasswordField fx:id="txtContrasena"
+                               promptText="Ingrese su contraseña"/>
             </VBox>
 
-            <Button text="Iniciar sesión" onAction="#iniciarSesion" defaultButton="true" maxWidth="Infinity" styleClass="primary-button"/>
-            <Button text="Salir" onAction="#salir" maxWidth="Infinity" styleClass="secondary-button"/>
+            <Button text="Iniciar sesión"
+                    onAction="#iniciarSesion"
+                    maxWidth="Infinity"
+                    styleClass="primary-button"/>
 
-            <Label text="También puede presionar ENTER para iniciar sesión." styleClass="helper-text" wrapText="true"/>
+            <Button text="Salir"
+                    onAction="#salir"
+                    maxWidth="Infinity"
+                    styleClass="secondary-button"/>
+
+            <Label text="También puede presionar ENTER para iniciar sesión."
+                   styleClass="helper-text"
+                   wrapText="true"/>
         </VBox>
     </center>
+
 </BorderPane>
