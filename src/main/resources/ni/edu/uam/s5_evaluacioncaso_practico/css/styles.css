@@ -1,0 +1,124 @@
+.root {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
+}
+
+.app-root {
+    -fx-background-color: #f4f6f9;
+}
+
+.card,
+.info-box {
+    -fx-background-color: white;
+    -fx-background-radius: 14px;
+    -fx-border-radius: 14px;
+    -fx-border-color: #dfe4ea;
+    -fx-border-width: 1px;
+}
+
+.title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1f2937;
+}
+
+.subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #6b7280;
+}
+
+.section-title,
+.field-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #374151;
+}
+
+.helper-text {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6b7280;
+}
+
+.page-header {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent #e5e7eb transparent;
+}
+
+.content-area {
+    -fx-background-color: #f4f6f9;
+}
+
+.footer {
+    -fx-background-color: white;
+    -fx-border-color: #e5e7eb transparent transparent transparent;
+}
+
+.text-field,
+.password-field,
+.combo-box,
+.date-picker {
+    -fx-pref-height: 38px;
+}
+
+.primary-button {
+    -fx-background-color: #1f4e79;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-padding: 9px 18px;
+}
+
+.primary-button:hover {
+    -fx-background-color: #173d60;
+}
+
+.secondary-button,
+.toolbar-button {
+    -fx-background-color: white;
+    -fx-text-fill: #1f2937;
+    -fx-border-color: #cfd6df;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 8px 16px;
+}
+
+.secondary-button:hover,
+.toolbar-button:hover {
+    -fx-background-color: #eef2f7;
+}
+
+.menu-card-button {
+    -fx-background-color: white;
+    -fx-text-fill: #1f4e79;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-border-color: #d7dde5;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+}
+
+.menu-card-button:hover {
+    -fx-background-color: #eef5fb;
+    -fx-border-color: #1f4e79;
+}
+
+.photo-frame {
+    -fx-border-color: #cfd6df;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+    -fx-background-color: white;
+}
+
+.table-view,
+.list-view {
+    -fx-background-color: white;
+    -fx-border-color: #dfe4ea;
+    -fx-border-radius: 8px;
+}
+
+.transparent-scroll {
+    -fx-background-color: transparent;
+}
+
+.transparent-scroll > .viewport {
+    -fx-background-color: transparent;
+}
