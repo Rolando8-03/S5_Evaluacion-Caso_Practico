@@ -8,10 +8,10 @@ Aplicación JavaFX para el registro y consulta de solicitudes de clientes. El pr
 
 | Integrante | Rama | Responsabilidad principal |
 |---|---|---|
-| Rolando Mayorga| `Rolando_Acceso` | Configuración, arranque, inicio de sesión, alertas y documentación |
+| Dylan Mora| `Dylan_Acceso` | Configuración, arranque, inicio de sesión, alertas |
 | Mauro Delgado| `Mauro_Registro` | Modelo, enums, almacenamiento temporal, registro y validaciones |
 | Aris Gavarrete| `Aris_Consulta` | Consulta, TableView, ContextMenu, MouseEvent, detalle y paso de datos |
-| Dylan Mora| `Dylan_Navegacion` | Ventana principal, navegación, MenuBar, ToolBar, Dialog, DirectoryChooser y CSS |
+| Rolando Mayorga| `Rolando_Navegacion` | Ventana principal, navegación, MenuBar, ToolBar, Dialog, DirectoryChooser y CSS |
 
 ## Flujo de la aplicación
 
